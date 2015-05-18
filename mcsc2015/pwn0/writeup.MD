@@ -6,7 +6,11 @@ total 16<br>
 -rws--s--x 1 pwned0 pwned0 7492 mai   18 15:13 0<br>
 -r-------- 1 pwned0 pwned0   52 mai   18 15:13 FLAG<br>
 -rw-r--r-- 1 root   root    558 mai   18 15:13 pwn0.c<br>
+pwn0@MCSC2015:/challenges/pwn0$ cat /proc/sys/kernel/randomize_va_space <br>
+2<br>
 <br>
+ASLR is on !!<br>
+gcc -mpreferred-stack-boundary=2 -fno-stack-protector -z execstack -o 0.c<br>
 after a quick view in pwn0.c, here's an interesting function<br>
 <br>
 void vuln()<br>

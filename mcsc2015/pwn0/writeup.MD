@@ -13,18 +13,19 @@ ASLR is on !!<br>
 gcc -mpreferred-stack-boundary=2 -fno-stack-protector -z execstack -o 0.c<br>
 after a quick view in pwn0.c, here's an interesting function<br>
 <br>
-void vuln()<br>
-{<br>
-	unsigned int reg;<br>
-	char buffer[BUFF_SIZE];<br>
-	fgets(buffer , BUFF_SIZE+5 , stdin);<br>
-	if(reg == 78954)<br>
-	{<br>
-		printf("You Win\n");<br>
-		system("/bin/dash");<br>
-	}<br>
-}<br>
-<br>
+```C
+void vuln()
+{
+	unsigned int reg;
+	char buffer[BUFF_SIZE];
+	fgets(buffer , BUFF_SIZE+5 , stdin);
+	if(reg == 78954)
+	{
+		printf("You Win\n");
+		system("/bin/dash");
+	}
+}
+```
 However, this function is executed if and only if argc is equal to zero.<br>
 In that case, execve can be handy ...<br>
 <br>

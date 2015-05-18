@@ -1,7 +1,4 @@
-############################
 # MCSC2015 writeup for Pwn-100
-############################
-
 pwn0@MCSC2015:/challenges/pwn0$ ls -l
 total 16
 -rws--s--x 1 pwned0 pwned0 7492 mai   18 15:13 0

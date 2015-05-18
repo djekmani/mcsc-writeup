@@ -32,12 +32,14 @@ In that case, execve can be handy ...<br>
 <br>
 Step 1 : run the program with argc equals to zero to allow the function vuln() to be executed.<br>
 Step 2 : overwrite the variable reg with 78954<br>
-if(reg == 78954)<br>
-{<br>
-	printf("You Win\n");<br>
-	system("/bin/dash");<br>
-}<br>
-\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#<br>
+``````
+if(reg == 78954)
+{
+	printf("You Win\n");
+	system("/bin/dash");
+}
+```
+
 Step1 : run a program with argc=0<br>
 What's special about the family exec call system ?<br>
 execve allows you to specify the command-line arguments (including the program name).<br>

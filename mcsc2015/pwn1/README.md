@@ -7,7 +7,7 @@
 
 # Write-up 
 
-[pwn0 write-up](https://github.com/djekmani/ctfs-write-up/blob/master/mcsc2015/pwn0/writeup.MD)
+[pwn1 write-up](https://github.com/djekmani/ctfs-write-up/blob/master/mcsc2015/pwn1/pwn1_writeup.MD)
 
 # Other write-ups and resources
 

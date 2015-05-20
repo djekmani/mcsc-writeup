@@ -461,6 +461,7 @@ There's one call to system, I looked in the assembly code and found that this sy
  80489fc:	c9                   	leave  
  80489fd:	c3                   	ret  
 ```
+```
 despairing, I looked inside gdb to see what this function do ...
 pwn1@MCSC2015:/challenges/pwn1$ gdb ./pwn1 
 (gdb) break main

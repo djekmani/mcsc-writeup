@@ -9,7 +9,7 @@
 
 # Write-up 
 
-[pwn1 write-up](https://github.com/djekmani/ctfs-write-up/blob/master/mcsc2015/pwn1/pwn1_writeup.MD)
+[pwn1 write-up](https://github.com/djekmani/ctfs-write-up/blob/master/mcsc2015/pwn/pwn1/pwn1_writeup.MD) By Youness LOUZE(SanXore)
 
 # Other write-ups and resources
 

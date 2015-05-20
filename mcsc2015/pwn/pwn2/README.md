@@ -4,7 +4,7 @@
 * **Points**: 350 <br>
 * **Solves**: 0 <br>
 * **Author**: DJEKMANI Azz-Eddine
-* **Contact: azzeddine.djekmani@um5s.net.ma
+* **Contact**: azzeddine.djekmani@um5s.net.ma
 * **Description**: Pwn me if you can :XD 192.168.3.7 12345	
 
 # Write-up 

@@ -4,7 +4,7 @@
 * **Points**: 300 <br>
 * **Solves**: 2 <br>
 * **Author**: DJEKMANI Azz-Eddine
-* **Contact: azzeddine.djekmani@um5s.net.ma
+* **Contact**: azzeddine.djekmani@um5s.net.ma
 * **Description**: 192.168.3.7 user: pwn1 ; pass: pwn1	
 
 # Write-up 

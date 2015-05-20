@@ -1,4 +1,4 @@
-#MCSC2015 writeup for Pwn-100
+#MCSC2015 writeup for Pwn-300
 After establishing ssh connection, here's what are up to :<br>
 ```
 pwn1@MCSC2015:/challenges/pwn1$ ls -lia

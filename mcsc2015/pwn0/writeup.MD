@@ -6,11 +6,18 @@ total 16
 -rws--s--x 1 pwned0 pwned0 7492 mai   18 15:13 0
 -r-------- 1 pwned0 pwned0   52 mai   18 15:13 FLAG
 -rw-r--r-- 1 root   root    558 mai   18 15:13 pwn0.c
+pwn1@MCSC2015:/challenges/pwn0$ /tmp/checksec.sh --file 0
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      FILE
+Partial RELRO   No canary found   NX disabled   No PIE          No RPATH   No RUNPATH   0
 pwn0@MCSC2015:/challenges/pwn0$ cat /proc/sys/kernel/randomize_va_space
 2
 ```
+checksec.sh cant be found at : https://github.com/slimm609/checksec.sh/blob/master/checksec <br>
+There's no canary, NX is disabled, nothing but good news<br>
 ASLR is on !!<br>
+Having the options used when compiling the binary, we can get to the same conclusion ...<br>
 gcc -mpreferred-stack-boundary=2 -fno-stack-protector -z execstack -o 0.c<br>
+-mpreferred-stack-boundary=2 ( pointers inside the  stack are on 4-byte boundary )  :) <br>
 after a quick view in pwn0.c, here's an interesting function<br>
 <br>
 ```C

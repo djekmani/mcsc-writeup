@@ -12,6 +12,7 @@ Partial RELRO   No canary found   NX disabled   No PIE          No RPATH   No RU
 pwn0@MCSC2015:/challenges/pwn0$ cat /proc/sys/kernel/randomize_va_space
 2
 ```
+checksec.sh cant be found at : https://github.com/slimm609/checksec.sh/blob/master/checksec <br>
 There's no canary, NX is disabled, nothing but good news<br>
 ASLR is on !!<br>
 Having the options used when compiling the binary, we can get to the same conclusion ...<br>

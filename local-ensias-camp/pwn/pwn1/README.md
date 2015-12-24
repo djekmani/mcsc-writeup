@@ -5,8 +5,7 @@
 
 # Write-up 
 
-(TODO)
-
+[http://djekmani.github.io/posts/Writeup-ENSIAS-Camp/](http://djekmani.github.io/posts/Writeup-ENSIAS-Camp/)
 # Other write-ups and resources
 
 (TODO)

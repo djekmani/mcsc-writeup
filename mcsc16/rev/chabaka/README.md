@@ -2,7 +2,7 @@
 
 * **Category**: reverse engineering <br>
 * **Points**: 150 <br>
-* **Solves**: 2 (Sanxore) <br>
+* **Solves**: 2  <br>
 * **Author**: SOURI Abdelhalime
 * **Contact**: (todo)
 * **Description**: Warmup

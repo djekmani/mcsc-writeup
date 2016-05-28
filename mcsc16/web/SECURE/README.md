@@ -2,7 +2,7 @@
 
 * **Category**: WEB <br>
 * **Points**: 250 <br>
-* **Solves**: 4 (Spiderz)<br>
+* **Solves**: 4 <br>
 * **Author**: DJEKMANI Azz-Eddine
 * **Contact**: azzeddine.djekmani@um5s.net.ma
 * **Description**: get the secret and have fun.

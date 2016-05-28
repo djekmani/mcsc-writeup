@@ -3,9 +3,9 @@
 * **Category**: FORENSIC <br>
 * **Points**: 200 <br>
 * **Solves**: 0  <br>
-**Author**: BENCHARHI Youssef
- **Contact**: bencharhi.youssef@gmail.com 
- **Description**: i forgot my administrator password 
+* **Author**: BENCHARHI Youssef
+*  **Contact**: bencharhi.youssef@gmail.com 
+*  **Description**: i forgot my administrator password 
 i had a  backup file but it was damaged :( 
 
 try to analyze the file, if u can find my password 

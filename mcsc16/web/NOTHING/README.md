@@ -15,4 +15,4 @@ http://10.0.2.2/web1/
 
 # Other write-ups and resources
 
-(TODO)
+* https://github.com/Desiprox/MCSC16/blob/master/Web/Nothing/web1.txt

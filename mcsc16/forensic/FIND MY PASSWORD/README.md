@@ -20,4 +20,4 @@ the dump is in the folder  foreinsic 1
 
 # Other write-ups and resources
 
-https://github.com/7BISSO/ctfs-write-ups/tree/master/MCSC-CTF-2016/Forensic1
+* https://github.com/7BISSO/ctfs-write-ups/tree/master/MCSC-CTF-2016/Forensic1

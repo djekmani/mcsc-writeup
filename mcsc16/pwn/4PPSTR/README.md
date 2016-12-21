@@ -16,4 +16,4 @@ nc 10.0.2.3 1111
 
 # Other write-ups and resources
 
-(TODO)
+https://github.com/djekmani/mcsc-writeup/blob/master/mcsc16/pwn/4PPSTR/solution.py (Abdeljalil Nouiri)

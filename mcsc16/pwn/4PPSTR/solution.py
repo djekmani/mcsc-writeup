@@ -5,7 +5,7 @@
 #Abdeljalil Nouiri
 
 #4PPSTR - Pwnable - MCSC2016 CTF
-#Greetz : Azzedine Djekmani & All MCSC CTF organizers
+#Greetz : Azz-Eddine Djekmani & All MCSC CTF organizers
 
 
 from pwn import *
